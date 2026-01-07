@@ -12,17 +12,18 @@
     <div id="nav" class="navigator">
         <nav>
             <h2 id="logo">Pixel Pass</h2>
-            <a href="#home">Home</a>
-            <a href="#feature">Feature</a>
-            <a href="#about">About us</a>
-            <a href="#security">Security</a>
+            <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#feature">Feature</a></li>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#security">Security</a></li>
+            </ul>
         </nav>
     </div>
 
     <div id="title">
         <h1>How strong is your Pixel Pass?</h1>
         <p id="title-paragraph">Test your password strength for each account with Pixel Password Strength Checker. Safe, Trusted, Security.</p>
-        </div>
     </div>
 
     <div id="inputContainer" class="input-container">
@@ -31,13 +32,36 @@
 
         <div id="test-container" class="test-container">
             <input 
-                type="text"
-                id="inputPasswordOutput"
+                type="password"
+                id="password-input"
                 placeholder="Evaluate Password Here"
-                
             >
+
+            <!-- Password strength widget (HTML-only) -->
+            <section class="pw-strength" aria-label="Password strength">
+            <div class="pw-strength__header">
+                <h3 class="pw-strength__title">Your password strength</h3>
+                <span class="pw-strength__status" aria-hidden="true">Good</span>
+            </div>
+
+            <!-- Use a data attribute to hold the numeric strength (0-100). -->
+            <div
+                class="pw-strength__bar"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="75"
+                aria-label="Password strength 75 percent"
+                data-strength="75"
+            >
+                <!-- The inner fill is left empty; width/colour will be set later with CSS/JS. -->
+                <div class="pw-strength__fill"></div>
+            </div>
+</section>
         </div>
     </div>
+
+
 
 
 
