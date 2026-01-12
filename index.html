@@ -8,62 +8,61 @@
     <title>Document</title>
 </head>
 <body>
-
-    <div id="nav" class="navigator">
-        <nav>
-            <h2 id="logo">Pixel Pass</h2>
-            <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#feature">Feature</a></li>
-            <li><a href="#about">About us</a></li>
-            <li><a href="#security">Security</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div id="title">
-        <h1>How strong is your Pixel Pass?</h1>
-        <p id="title-paragraph">Test your password strength for each account with Pixel Password Strength Checker. Safe, Trusted, Security.</p>
-    </div>
-
-    <div id="inputContainer" class="input-container">
-        <h1 id="inputH1">Pixel Password Testing</h1>
-        <p id="testing-paragraph">You think you have a strong password? Lets see below.</p>
-
-        <div id="test-container" class="test-container">
-            <input 
-                type="password"
-                id="password-input"
-                placeholder="Evaluate Password Here"
-            >
-
-            <!-- Password strength widget (HTML-only) -->
-            <section class="pw-strength" aria-label="Password strength">
-            <div class="pw-strength__header">
-                <h3 class="pw-strength__title">Your password strength</h3>
-                <span class="pw-strength__status" aria-hidden="true">Good</span>
+</body>
+    <div class="container">
+        <header class="top-nav">
+            <div class="logo">
+                <div class="symbol" aria-hidden="true"></div>
+                <div>
+                    <h2 id="logo">Pixel Pass</h2>
+                </div>
             </div>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#feature">Feature</a></li>
+                    <li><a href="#about">About us</a></li>
+                    <li><a href="#security">Security</a></li>
+                </ul>
+            </nav>
+        </header>
 
-            <!-- Use a data attribute to hold the numeric strength (0-100). -->
-            <div
-                class="pw-strength__bar"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow="75"
-                aria-label="Password strength 75 percent"
-                data-strength="75"
-            >
-                <!-- The inner fill is left empty; width/colour will be set later with CSS/JS. -->
-                <div class="pw-strength__fill"></div>
+        <main class="card">
+            <div class="hero">
+                <div class="hero-left">
+                    <h1 class="title">How strong is your Pixel Pass?</h1>
+                    <p id="title-paragraph" class="subtitle">Test your password strength for each account with Pixel Password Strength Checker. Safe, Trusted, Security.</p>
+                </div>
+                <div class="hero-right">
+                    <!-- reserved for future illustration or CTA -->
+                </div>
             </div>
-</section>
-        </div>
+        </main>
+
+        <section class="card strength-panel">
+            <h2 class="strength-header">Pixel Password Testing</h2>
+            <p class="subtitle">You think you have a strong password? Let's see below.</p>
+
+            <div id="test-container" class="test-container">
+                <div class="controls">
+                    <input 
+                        type="password"
+                        id="password-input"
+                        placeholder="Evaluate Password Here"
+                    >
+                    <button class="btn" id="evaluate-btn">Check</button>
+                </div>
+
+                <div class="spacer"></div>
+
+                <div class="progress-track" role="progressbar" aria-label="Password strength">
+                    <div class="progress-fill" style="--strength:75%"></div>
+                </div>
+
+                <p class="estimate">Your password strength: <span class="value">Good</span></p>
+            </div>
+        </section>
     </div>
-
-
-
-
 
 </body>
 </html>
