@@ -1,33 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const input = document.getElementById('password-input');
-	const btn = document.getElementById('evaluate-btn');
-	const fill = document.querySelector('.progress-fill');
-	const valueLabel = document.querySelector('.estimate .value');
+    console.log('Password Strength Checker loaded');
+    const passwordInput = document.getElementById('password-input');
+    const evaluateButton = document.getElementById('evaluate-btn');
+    const progressFill = document.querySelector('.progress-fill');
+    const progressTrack = document.querySelector('.progress-track');
+    const strengthLabel = document.querySelector('.estimate .value');
+    const logo = document.getElementById('logo');
+    const paragraph = document.getElementById('title-paragraph');
 
-	function evaluatePassword(pw) {
-		if (!pw) return { score: 0, label: 'Empty' };
-		let score = 0;
-		if (pw.length >= 8) score += 25;
-		else score += Math.min(25, pw.length * 3);
-		if (/[a-z]/.test(pw)) score += 15;
-		if (/[A-Z]/.test(pw)) score += 20;
-		if (/\d/.test(pw)) score += 20;
-		if (/[^A-Za-z0-9]/.test(pw)) score += 20;
-		score = Math.min(100, score);
-		let label = 'Very weak';
-		if (score < 25) label = 'Very weak';
-		else if (score < 50) label = 'Weak';
-		else if (score < 75) label = 'Good';
-		else label = 'Strong';
-		return { score, label };
-	}
+    function evaluatePasswordStrength(password) {
+        if (!password) return { score: 0, label: 'Empty' };
+        let score = 0;
+        if (password.length >= 12) score += 30;
+        else if (password.length >= 8) score += 20;
+        else score += Math.min(10, password.length * 1);
+        if (/[a-z]/.test(password)) score += 10;
+        if (/[A-Z]/.test(password)) score += 15;
+        if (/\d/.test(password)) score += 15;
+        if (/[^A-Za-z0-9]/.test(password)) score += 20;
+        score = Math.min(100, score);
+        let label = 'Very weak';
+        if (score === 0) label = 'Empty';
+        else if (score < 25) label = 'Very weak';
+        else if (score < 50) label = 'Weak';
+        else if (score < 75) label = 'Good';
+        else label = 'Strong';
+        return { score, label };
+    }
 
-	btn.addEventListener('click', () => {
-		const pw = input.value;
-		const { score, label } = evaluatePassword(pw);
-		fill.style.setProperty('--strength', score + '%');
-		valueLabel.textContent = label;
-		if (score === 0) fill.classList.add('empty');
-		else fill.classList.remove('empty');
-	});
+    function updateUI(score, label) {
+        if (progressFill) {
+            progressFill.style.setProperty('--strength', score + '%');
+            progressFill.classList.toggle('empty', score === 0);
+        }
+        if (strengthLabel) strengthLabel.textContent = label;
+    }
+
+    function runEvaluate() {
+        const pw = passwordInput ? passwordInput.value : '';
+        const { score, label } = evaluatePasswordStrength(pw);
+        updateUI(score, label);
+    }
+
+    if (evaluateButton) evaluateButton.addEventListener('click', runEvaluate);
+    if (passwordInput) passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') runEvaluate(); });
+
+    // keep bar empty at start
+    updateUI(0, 'Empty');
 });
+
