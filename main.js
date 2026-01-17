@@ -8,8 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const logo = document.getElementById('logo');
     const paragraph = document.getElementById('title-paragraph');
 
+    // evaluating password strength function
     function evaluatePasswordStrength(password) {
         if (!password) return { score: 0, label: 'Empty' };
+        
         let score = 0;
         if (password.length >= 12) score += 30;
         else if (password.length >= 8) score += 20;
@@ -19,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/\d/.test(password)) score += 15;
         if (/[^A-Za-z0-9]/.test(password)) score += 20;
         score = Math.min(100, score);
+
         let label = 'Very weak';
         if (score === 0) label = 'Empty';
         else if (score < 25) label = 'Very weak';
@@ -27,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else label = 'Strong';
         return { score, label };
     }
+
+    // update UI function
 
     function updateUI(score, label) {
         if (progressFill) {
@@ -44,6 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (evaluateButton) evaluateButton.addEventListener('click', runEvaluate);
     if (passwordInput) passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') runEvaluate(); });
+
+    // clear progress bar when the input is emptied
+    if (passwordInput) passwordInput.addEventListener('input', () => {
+        if (passwordInput.value.trim() === '') {
+            updateUI(0, 'Empty');
+        }
+    });
 
     // keep bar empty at start
     updateUI(0, 'Empty');
